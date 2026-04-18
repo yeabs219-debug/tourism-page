@@ -1,8 +1,8 @@
-import PlaceCard from "./PlaceCard";
+import PlaceCard from "./placecard";
 
 function PlacesGrid({ places }) {
   return (
-    <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
+    <div className = "max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
       {places.map((place) => (
         <PlaceCard key={place.id} place={place} />
       ))}
