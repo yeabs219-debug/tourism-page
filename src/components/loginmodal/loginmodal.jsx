@@ -1,18 +1,18 @@
 import { useState } from "react";
-//import axios from "axios";
+import axios from "axios";
 
 function LoginModal({ show, onClose, setIsLoggedIn }) {
   const [isSignup, setIsSignup] = useState(false);
 
   const [form, setForm] = useState({
-  name: "",
+  fullName: "",
+  username: "",
+  PhoneNumber: "",
   email: "",
-  password: "",
-  confirmPassword: "",
-  phone: "",
+  password: "", 
   gender: "",
-  country: "",
-  age: "",
+  location: "",
+  dob: "",
 });
 
   if (!show) return null;
@@ -28,8 +28,8 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
     e.preventDefault();
 
     const url = isSignup
-      ? "http://localhost:5000/signup"
-      : "http://localhost:5000/login";
+      ? "http://localhost:5000/api/auth/signup"
+      : "http://localhost:5000/api/auth/login";
 
     try {
       const res = await axios.post(url, form);
@@ -62,9 +62,9 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
 {!isSignup && (
   <>
     <input
-      type="email"
-      name="email"
-      placeholder="Email"
+      type="text"
+      name="username"
+      placeholder="Username"
       onChange={handleChange}
       className="border p-3 rounded-xl w-full"
     />
@@ -84,8 +84,15 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
   <>
     <input
       type="text"
-      name="name"
+      name="fullName"
       placeholder="Full Name"
+      onChange={handleChange}
+      className="border p-3 rounded-xl w-full"
+    />
+    <input
+      type="text"
+      name="username"
+      placeholder="user name"
       onChange={handleChange}
       className="border p-3 rounded-xl w-full"
     />
@@ -100,7 +107,7 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
 
     <input
       type="tel"
-      name="phone"
+      name="PhoneNumber"
       placeholder="Phone Number"
       onChange={handleChange}
       className="border p-3 rounded-xl w-full"
@@ -118,15 +125,15 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
 
     <input
       type="text"
-      name="country"
+      name="location"
       placeholder="Country"
       onChange={handleChange}
       className="border p-3 rounded-xl w-full"
     />
 
     <input
-      type="number"
-      name="age"
+      type="date"
+      name="dob"
       placeholder="Age"
       onChange={handleChange}
       className="border p-3 rounded-xl w-full"
@@ -140,13 +147,6 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
       className="border p-3 rounded-xl w-full"
     />
 
-    <input
-      type="password"
-      name="confirmPassword"
-      placeholder="Confirm Password"
-      onChange={handleChange}
-      className="border p-3 rounded-xl w-full"
-    />
   </>
 )}
 
