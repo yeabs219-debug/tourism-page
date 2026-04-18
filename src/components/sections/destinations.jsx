@@ -1,5 +1,5 @@
-import placesCard ,{places} from "@/data/places"; 
-
+import {places} from "@/data/places"; 
+import PlacesGrid from "../ui/placesGrid";
 export default function Destinations() {
   return (
     <section className="py-24 px-6 bg-[#F7F3EC]">
@@ -13,9 +13,8 @@ export default function Destinations() {
           Discover Ethiopia’s most beautiful modern travel spots
         </p>
       </div>
-
-      {/* Grid */}
-      {placesCard(places)}
+    <PlacesGrid places = {places}/>
+      
      </section>
   );
 }

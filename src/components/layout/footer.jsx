@@ -1,5 +1,6 @@
-import { Globe, Mail, Phone } from "lucide-react";
 import { FaFacebook , FaInstagram ,FaTwitter} from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import ScrollToTop from '@/utility/scrolltotop';
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-12 px-6">
@@ -18,9 +19,11 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2 text-gray-400 text-sm">
-            <li className="hover:text-white cursor-pointer">Home</li>
-            <li className="hover:text-white cursor-pointer">Destinations</li>
-            <li className="hover:text-white cursor-pointer">Culture</li>
+            <li className="hover:text-white cursor-pointer">
+              <Link to={'/'} onClick={ScrollToTop}>Home</Link>
+              </li>
+            <li className="hover:text-white cursor-pointer"> <Link to={'/destinations'}>Destinations</Link></li>
+            <li className="hover:text-white cursor-pointer"> <Link to={'/whyvisit'}>culture</Link></li>
             <li className="hover:text-white cursor-pointer">Contact</li>
           </ul>
         </div>

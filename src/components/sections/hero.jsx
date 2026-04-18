@@ -1,8 +1,9 @@
-import hero1 from '../../assets/hallala-kella.jpg'
+import hero1 from '../../assets/hero.jpg'
 import { Button } from "@/components/ui/button";
 import WhyVisit from './whyvisit';
 import { Link } from 'react-router-dom';
-import placesCard ,{places} from '@/data/places';
+import {places} from '@/data/places';
+import PlacesGrid from '../ui/placesGrid';
 
 export default function Hero({ isLoggedIn, setShowLogin }) {
   const topDestinations = places.slice(0,3);
@@ -62,7 +63,7 @@ export default function Hero({ isLoggedIn, setShowLogin }) {
           Discover Ethiopia’s most beautiful modern travel spots
         </p>
       </div>
-      {placesCard(topDestinations)}
+      <PlacesGrid places = {topDestinations}/>
 
     </section>
     <WhyVisit/>

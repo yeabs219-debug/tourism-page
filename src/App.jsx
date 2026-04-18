@@ -6,11 +6,11 @@ import Destinations from './components/sections/destinations'
 import WhyVisit from './components/sections/whyvisit'
 import Footer from './components/layout/footer'
 import './App.css'
-import { Route ,BrowserRouter, Routes } from 'react-router-dom'
+import { Route ,BrowserRouter, Routes,useLocation } from 'react-router-dom'
 import ScrollToTop from './utility/scrolltotop'
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import LoginModal from './components/loginmodal/loginmodal'
+import DestinationDetails from './components/sections/destination-details'
 
 function App() {
   const location = useLocation();
@@ -30,6 +30,7 @@ useEffect(() => {
       <Routes>
         <Route path='/' element={<Hero isLoggedIn={isLoggedIn} setShowLogin={setShowLogin} />}/>
         <Route path='/destinations' element={<Destinations/>}/>
+        <Route path="/destination/:id" element={<DestinationDetails/>} />
         <Route path='/whyvisit' element={<WhyVisit/>}/>
         <Route path='/footer' element={<Footer/>}/>
       </Routes>

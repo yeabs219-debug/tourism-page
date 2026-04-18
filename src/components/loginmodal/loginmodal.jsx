@@ -3,7 +3,7 @@ import axios from "axios";
 
 function LoginModal({ show, onClose, setIsLoggedIn }) {
   const [isSignup, setIsSignup] = useState(false);
-
+  const [error , setError] = useState()
   const [form, setForm] = useState({
   fullName: "",
   username: "",
@@ -33,7 +33,6 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
 
     try {
       const res = await axios.post(url, form);
-
       if (!isSignup) {
         localStorage.setItem("token", res.data.token);
         setIsLoggedIn(true);
@@ -41,9 +40,12 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
       } else {
         alert("Account created! Now login.");
         setIsSignup(false);
+        console.log(data)
       }
     } catch (err) {
-      alert("Something went wrong");
+      setError(err.response?.data?.message||
+       err.response?.data?.errors?.[0]?.msg ||
+      "Something went wrong")
     }
   };
 
@@ -153,6 +155,12 @@ function LoginModal({ show, onClose, setIsLoggedIn }) {
           <button className="bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl transition">
             {isSignup ? "Sign Up" : "Login"}
           </button>
+         {error && (
+            <p className="bg-red-100 text-red-700 text-sm px-3 py-2 rounded mt-2">
+              {error}
+            </p>
+          )}
+                  
         </form>
 
 
