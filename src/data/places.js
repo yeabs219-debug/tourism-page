@@ -1,4 +1,4 @@
- import hallalaKella from '../assets/hallala-kella.jpg'
+import hallalaKella from '../assets/hallala-kella.jpg'
 import gorgora from '../assets/hero3.jpg'
 import entoto from '../assets/entoto.jpg'
  import chebera from '../assets/chebera.webp'

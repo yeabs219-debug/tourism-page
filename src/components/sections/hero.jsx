@@ -2,10 +2,12 @@ import hero1 from '../../assets/hero.jpg'
 import { Button } from "@/components/ui/button";
 import WhyVisit from './whyvisit';
 import { Link } from 'react-router-dom';
-import {places} from '@/data/places';
 import PlacesGrid from '../ui/placesGrid';
+import { useEffect,useState } from 'react';
 
 export default function Hero({ isLoggedIn, setShowLogin }) {
+  const [places , setPlaces] = useState([])
+  const [loading ,setLoading] = useState(true)
   const topDestinations = places.slice(0,3);
   const handleBookNow = () => {
     if (!isLoggedIn) {
@@ -14,6 +16,20 @@ export default function Hero({ isLoggedIn, setShowLogin }) {
       alert("Proceed to booking");
     }
   }
+
+    useEffect(() => {
+      fetch("http://localhost:5000/trips")
+        .then((res) => res.json())
+        .then((data) => {
+          setPlaces(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching trips:", err);
+          setLoading(false);
+        });
+    }, []);
+
   return (
     <div>
     <section className="relative h-screen overflow-hidden">

@@ -3,9 +3,7 @@ import axios from "axios";
 
 function BookingModal({ open, onClose, place }) {
   const [form, setForm] = useState({
-    name: "",
     date: "",
-    guests: 1,
   });
 
   const [message, setMessage] = useState("");
@@ -16,27 +14,48 @@ function BookingModal({ open, onClose, place }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+const handleBook = async () => {
+  setLoading(true);
+  setMessage("");
 
-  const handleBook = async () => {
-    setLoading(true);
-    setMessage("");
+  if (!form.date) {
+    setMessage("Please select a date");
+    setLoading(false);
+    return;
+  }
 
-    try {
-      await axios.post("http://localhost:5000/api/bookings", {
-        ...form,
-        placeName: place.name,
-      });
+  if (!place?.id) {
+    setMessage("Invalid place selected");
+    setLoading(false);
+    return;
+  }
 
-      setMessage("Booking successful 🎉");
-      setForm({ name: "", date: "", guests: 1 });
+  try {
+    await axios.post(
+      "http://localhost:5000/bookings",
+      {
+        trip_id: place.id,
+        booking_date: form.date,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
-    } catch (err) {
-      setMessage("Booking failed ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
+    setMessage("Booking successful 🎉");
+    setForm({ date: "" });
 
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    setMessage("Booking failed ❌");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
 
@@ -60,15 +79,7 @@ function BookingModal({ open, onClose, place }) {
         </p>
 
         {/* Inputs */}
-        <input
-          name="name"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full px-4 py-3 mb-3 rounded-xl border border-gray-200 bg-gray-50 
-  focus:bg-white focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 
-  outline-none transition shadow-sm"
-        />
+
 
         <input
           type="date"
@@ -78,17 +89,6 @@ function BookingModal({ open, onClose, place }) {
           className="w-full px-4 py-3 mb-3 rounded-xl border border-gray-200 bg-gray-50 
   focus:bg-white focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 
   outline-none transition shadow-sm text-gray-800" 
-        />
-
-        <input
-          type="number"
-          name="guests"
-          min="1"
-          value={form.guests}
-          onChange={handleChange}
-          className="w-full px-4 py-3 mb-3 rounded-xl border border-gray-200 bg-gray-50 
-  focus:bg-white focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 
-  outline-none transition shadow-sm"
         />
 
         {/* Button */}

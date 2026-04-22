@@ -8,7 +8,7 @@ function PlaceCard({ place }) {
     <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition duration-500">
 
       <img
-        src={place.image}
+        src={`http://localhost:5000/images/${place.image}`} 
         className="h-72 w-full object-cover group-hover:scale-110 transition duration-500"
       />
 
